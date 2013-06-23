@@ -1,0 +1,109 @@
+module Partisan
+  module Follower
+    extend ActiveSupport::Concern
+    include Partisan::FollowHelper
+
+    included do
+      has_many :follows, as: :follower, class_name: 'Partisan::Follow', dependent: :destroy
+    end
+
+    # Add follow record if it doesn’t exist
+    #
+    # @example
+    #
+    #   @user.follow(@team)
+    #
+    # @return (Partisan::Follow)
+    def follow(resource)
+      return if self == resource
+
+      fetch_follows(resource).first_or_create
+    end
+    alias_method :start_following, :follow
+
+    # Delete follow record if it exists
+    #
+    # @example
+    #
+    #   @user.unfollow(@team)
+    #
+    # @return (Partisan::Follow) || nil
+    def unfollow(resource)
+      return if self == resource
+
+      record = fetch_follows(resource).first
+      record.try(:destroy)
+    end
+    alias_method :stop_following, :unfollow
+
+    # Return true or false if the resource is following another
+    #
+    # @example
+    #
+    #   @user.following?(@team)
+    #
+    # @return (Boolean)
+    def following?(resource)
+      return false if self == resource
+
+      fetch_follows(resource).exists?
+    end
+
+    # Get all follows record related to a resource
+    #
+    # @example
+    #
+    #   @user.fetch_follows(@team)
+    #
+    # @return [Partisan::Follow, ...]
+    def fetch_follows(resource)
+      follows.where followable_id: resource.id, followable_type: parent_class_name(resource)
+    end
+
+    # Get resource records for a specific type, used by #method_missing
+    # It conveniently returns an ActiveRecord::Relation for easy chaining of useful ActiveRecord methods
+    #
+    # @example
+    #
+    #   @user.following_by_type('Team')
+    #
+    # @return (ActiveRecord::Relation)
+    def following_by_type(followable_type)
+      opts = {
+        'follows.follower_id' => self.id,
+        'follows.follower_type' => parent_class_name(self)
+      }
+
+      followable_type.constantize.joins(:followings).where(opts)
+    end
+
+    # Get ids of resources following self
+    # Use #pluck for an optimized sql query
+    #
+    # @example
+    #
+    #   @user.following_ids_by_type('Team')
+    #
+    # @return (Array)
+    def following_fields_by_type(followable_type, followable_field)
+      following_by_type(followable_type).pluck("#{followable_type.tableize}.#{followable_field}")
+    end
+
+    # Update cache counter
+    # Called in after_create and after_destroy
+    def update_follow_counter
+      self.update_attribute('followings_count', self.follows.count) if self.respond_to?(:followings_count)
+    end
+
+    def method_missing(m, *args)
+      if m.to_s[/following_(.+)_(.+)s$/]
+        following_fields_by_type($1.singularize.classify, $2)
+      elsif m.to_s[/following_(.+)/]
+        following_by_type($1.singularize.classify)
+      else
+        super
+      end
+    end
+
+  end
+end

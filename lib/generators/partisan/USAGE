@@ -1,0 +1,3 @@
+Description:
+  The acts_as_follower:install generator generates a migration that will
+  create the `follows` table in your database.
