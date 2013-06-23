@@ -1,20 +1,17 @@
 # Partisan
 
-Partisan is a Ruby library that allows ActiveRecord records to be follower and followable
+Partisan is a Ruby library that allows ActiveRecord records to follow other records.
 
-It’s heavily inspired by `acts_as_follower`.
+It’s heavily inspired by `acts_as_follower`. However, it’s not 100% compatible with `acts_as_follower` as I removed some “features”:
 
-It’s not 100% compatible with `acts_as_follower`, I removed some "features":
-
-* block follower
-* Array with all types of followers/following
-* `*_count` methods
+* Block a follower
+* Methods that returned mixed types of followers/following
+* `*_count` methods (see the new features list)
 
 But I also added awesome new ones:
 
-* model_follower_fields: So you can do `following_team_ids` but also `following_team_names`. It takes advantage of the `pluck` method, so it doesn’t create an instance of each follower. (go check `pluck` documentation, it’s simply awesome).
-
-* followers/followings now returns ActiveRecord::Relation for easy chaining/scoping/paginating...
+* You can use `following_team_ids` but also `following_team_names` (basically any `following_team_<column>s`). It takes advantage of the `pluck` method, so it doesn’t create an instance of each follower, it just return the relevant column values. (Go check `pluck` documentation, it’s simply awesome).
+* The `followers` and `followings` mthods now return an `ActiveRecord::Relation` for easy chaining, scoping, counting, pagination, etc.
 
 ## Installation
 
@@ -66,15 +63,14 @@ fan.following?(band)
 fan.unfollow(band)
 fan.following?(band)
 # => false
-
 ```
 
-Most of the times, you would want to get a quick look at about how many bands followed a certain resource. That could be an expensive operation.
+Most of the times, you would want to get a quick look at about how many fans follow a certain resource. That could be an expensive operation.
 
-However, if the *followed* record has an `followers_count` column, Partisan will populate its value with how many bands followed that record.
+However, if the *followed* record has a `followers_count` column, Partisan will populate its value with how many followers the record has.
 
 ```ruby
-band.follow(band)
+fan.follow(band)
 
 band.followers.count
 # SQL query that counts records and returns `1`
@@ -83,7 +79,7 @@ band.followers_count
 # Quick lookup into the column and returns `1`
 ```
 
-The same concept applies to `followable` with a `following_count` column
+The same concept applies to `followable` with a `following_count` column.
 
 ## License
 
