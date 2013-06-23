@@ -52,13 +52,18 @@ describe Partisan::Followable do
       it { expect(band.user_followers.count).to eq 1 }
       it { expect(band.user_followers).to be_an_instance_of(ActiveRecord::Relation) }
       it { expect(band.user_followers.first).to be_an_instance_of(User) }
-      it { expect(band.fans_followers.count).to eq 0 }
+      it { expect(band.fan_followers.count).to eq 0 }
     end
 
     describe :following_fields_by_type_in_method_missing do
       it { expect(band.users_follower_ids.count).to eq 1 }
       it { expect(band.users_follower_ids.first).to eq user.id }
       it { expect(band.fans_follower_ids.count).to eq 0 }
+    end
+
+    describe :respond_to? do
+      it { expect(band.respond_to?(:user_followers)).to be_true }
+      it { expect(band.respond_to?(:users_follower_ids)).to be_true }
     end
 
     describe :update_follow_counter do

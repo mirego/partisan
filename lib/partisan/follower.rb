@@ -105,5 +105,9 @@ module Partisan
       end
     end
 
+    def respond_to?(m, include_private = false)
+      super || m.to_s[/following_(.+)_(.+)s$/] || m.to_s[/following_(.+)/]
+    end
+
   end
 end

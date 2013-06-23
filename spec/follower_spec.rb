@@ -73,6 +73,11 @@ describe Partisan::Follower do
     describe :update_follow_counter do
       it { expect(user.followings_count).to eq 1 }
     end
+
+    describe :respond_to? do
+      it { expect(user.respond_to?(:following_bands)).to be_true }
+      it { expect(user.respond_to?(:following_band_ids)).to be_true }
+    end
   end
 
   describe :AliasMethods do
