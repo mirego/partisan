@@ -5,10 +5,10 @@ module Partisan
 
     # Retrieves the parent class name if using STI.
     def parent_class_name(obj)
-      if obj.class.superclass != ActiveRecord::Base
-        return obj.class.superclass.name
-      end
-      return obj.class.name
+      klass = obj.class
+      klass = klass.superclass while klass.superclass != ActiveRecord::Base
+
+      klass.name
     end
 
   end
