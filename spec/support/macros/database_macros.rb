@@ -12,7 +12,7 @@ module DatabaseMacros
   end
 
   def self.database_file
-    @database_file || File.join(File.dirname(__FILE__), 'test.db')
+    @database_file || File.expand_path('../test.db', __FILE__)
   end
 
   def setup_database
@@ -33,7 +33,7 @@ module DatabaseMacros
 
   # Run the built-in migration
   def run_default_migration
-    load File.join(File.dirname(__FILE__), '../../../lib/generators/partisan/templates/migration.rb')
+    load File.expand_path('../../../../lib/generators/partisan/templates/migration.rb', __FILE__)
     AddFollowsMigration.new.up
   end
 end
