@@ -1,4 +1,4 @@
-require 'acts_as_follower'
+require 'partisan'
 require 'rails'
 
 module Partisan
