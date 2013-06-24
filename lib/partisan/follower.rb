@@ -17,7 +17,8 @@ module Partisan
     def follow(resource)
       return if self == resource
 
-      fetch_follows(resource).first_or_create
+      follow = fetch_follows(resource).first_or_initialize
+      follow.save!
     end
     alias_method :start_following, :follow
 
