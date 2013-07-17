@@ -94,8 +94,8 @@ class Fan < ActiveRecord::Base
   acts_as_follower
   after_follow :send_notification
 
-  def send_notification(followable)
-    # ...
+  def send_notification
+    puts "#{self} is now following #{self.just_followed}"
   end
 end
 
@@ -103,11 +103,31 @@ class Band < ActiveRecord::Base
   acts_as_followable
   before_follow :ensure_active_fan
 
-  def ensure_active_fan(follower)
-    follower.active?
+  def ensure_active_fan
+    self.about_to_be_followed_by.active?
   end
 end
 ```
+
+The list of available callbacks are:
+
+#### Follower
+
+| Callback          | Reference to the followable |
+| ------------------|-----------------------------|
+| `before_follow`   | `self.about_to_follow`      |
+| `after_follow`    | `self.just_followed`        |
+| `before_unfollow` | `self.about_to_unfollow`    |
+| `after_unfollow`  | `self.just_unfollowed`      |
+
+#### Followable
+
+| Callback          | Reference to the followable      |
+| ------------------|----------------------------------|
+| `before_follow`   | `self.about_to_be_followed_by`   |
+| `after_follow`    | `self.just_followed_by`          |
+| `before_unfollow` | `self.about_to_by_unfollowed_by` |
+| `after_unfollow`  | `self.just_unfollowed_by`        |
 
 ## License
 
