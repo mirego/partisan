@@ -7,8 +7,8 @@ class AddFollowsMigration < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :follows, ["follower_id", "follower_type"],     name: "fk_follows"
-    add_index :follows, ["followable_id", "followable_type"], name: "fk_followables"
+    add_index :follows, ['follower_id', 'follower_type'],     name: 'index_partisan_followers'
+    add_index :follows, ['followable_id', 'followable_type'], name: 'index_partisan_followables'
   end
 
   def down
