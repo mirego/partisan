@@ -11,7 +11,7 @@ It’s heavily inspired by `acts_as_follower`. However, it’s not 100% compatib
 But I also added awesome new ones:
 
 * You can use `following_team_ids` but also `following_team_names` (basically any `following_team_<column>s`). It takes advantage of the `pluck` method, so it doesn’t create an instance of each follower, it just return the relevant column values. (Go check `pluck` documentation, it’s simply awesome).
-* The `followers` and `followings` mthods now return an `ActiveRecord::Relation` for easy chaining, scoping, counting, pagination, etc.
+* The `followers` and `followings` methods now return an `ActiveRecord::Relation` for easy chaining, scoping, counting, pagination, etc.
 
 ## Installation
 
