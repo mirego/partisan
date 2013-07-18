@@ -47,7 +47,7 @@ module Partisan
     def following?(resource)
       return false if self == resource
 
-      fetch_follows(resource).exists?
+      !!fetch_follows(resource).exists?
     end
 
     # Get all follows record related to a resource
