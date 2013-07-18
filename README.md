@@ -109,7 +109,7 @@ class Band < ActiveRecord::Base
 end
 ```
 
-The list of available callbacks are:
+The available callbacks are:
 
 #### Follower
 
