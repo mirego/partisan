@@ -24,7 +24,7 @@ module Partisan
     # Followable's :follow callbacks
     around_create do |follow, blk|
       self.followable.about_to_be_followed_by = self.followable.just_followed_by = self.follower
-      self.followable.run_callbacks :follow, &blk
+      self.followable.run_callbacks :followed, &blk
       self.followable.about_to_be_followed_by = self.followable.just_followed_by = nil
     end
 
@@ -38,7 +38,7 @@ module Partisan
     # Followable's :unfollow callbacks
     around_destroy do |follow, blk|
       self.followable.about_to_be_unfollowed_by = self.followable.just_unfollowed_by = self.follower
-      self.followable.run_callbacks :unfollow, &blk
+      self.followable.run_callbacks :unfollowed, &blk
       self.followable.about_to_be_unfollowed_by = self.followable.just_unfollowed_by = nil
     end
 
