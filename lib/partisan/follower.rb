@@ -1,10 +1,14 @@
 module Partisan
   module Follower
     extend ActiveSupport::Concern
+    extend ActiveModel::Callbacks
     include Partisan::FollowHelper
 
     included do
       has_many :follows, as: :follower, class_name: 'Partisan::Follow', dependent: :destroy
+      define_model_callbacks :follow
+      define_model_callbacks :unfollow
+      attr_accessor :about_to_follow, :just_followed, :about_to_unfollow, :just_unfollowed
     end
 
     # Add follow record if it doesn’t exist

@@ -65,6 +65,8 @@ fan.following?(band)
 # => false
 ```
 
+### Cache counters
+
 Most of the times, you would want to get a quick look at about how many fans follow a certain resource. That could be an expensive operation.
 
 However, if the *followed* record has a `followers_count` column, Partisan will populate its value with how many followers the record has.
@@ -80,6 +82,52 @@ band.followers_count
 ```
 
 The same concept applies to `followable` with a `following_count` column.
+
+### Callbacks
+
+You can define callbacks that will be triggered before or after a following relationship is created.
+
+If a `before_follow` callback returns `false`, it will halt the call and the relationship will be not be saved (much like `ActiveRecords`’s `before_save` callbacks).
+
+```ruby
+class Fan < ActiveRecord::Base
+  acts_as_follower
+  after_follow :send_notification
+
+  def send_notification
+    puts "#{self} is now following #{self.just_followed}"
+  end
+end
+
+class Band < ActiveRecord::Base
+  acts_as_followable
+  before_follow :ensure_active_fan
+
+  def ensure_active_fan
+    self.about_to_be_followed_by.active?
+  end
+end
+```
+
+The available callbacks are:
+
+#### Follower
+
+| Callback          | Reference to the followable |
+| ------------------|-----------------------------|
+| `before_follow`   | `self.about_to_follow`      |
+| `after_follow`    | `self.just_followed`        |
+| `before_unfollow` | `self.about_to_unfollow`    |
+| `after_unfollow`  | `self.just_unfollowed`      |
+
+#### Followable
+
+| Callback          | Reference to the follower        |
+| ------------------|----------------------------------|
+| `before_follow`   | `self.about_to_be_followed_by`   |
+| `after_follow`    | `self.just_followed_by`          |
+| `before_unfollow` | `self.about_to_by_unfollowed_by` |
+| `after_unfollow`  | `self.just_unfollowed_by`        |
 
 ## License
 
