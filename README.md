@@ -122,12 +122,12 @@ The available callbacks are:
 
 #### Followable
 
-| Callback          | Reference to the follower        |
-| ------------------|----------------------------------|
-| `before_follow`   | `self.about_to_be_followed_by`   |
-| `after_follow`    | `self.just_followed_by`          |
-| `before_unfollow` | `self.about_to_by_unfollowed_by` |
-| `after_unfollow`  | `self.just_unfollowed_by`        |
+| Callback                  | Reference to the follower        |
+| --------------------------|----------------------------------|
+| `before_being_followed`   | `self.about_to_be_followed_by`   |
+| `after_being_followed`    | `self.just_followed_by`          |
+| `before_being_unfollowed` | `self.about_to_by_unfollowed_by` |
+| `after_being_unfollowed`  | `self.just_unfollowed_by`        |
 
 ## License
 

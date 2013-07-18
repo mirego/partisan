@@ -84,30 +84,30 @@ describe Partisan::Followable do
       end
     end
 
-    describe :before_follow do
+    describe :before_being_followed do
       before do
         followable 'Band' do
-          before_follow { Buffer.tmp_value = self.about_to_be_followed_by }
+          before_being_followed { Buffer.tmp_value = self.about_to_be_followed_by }
         end
       end
 
       it { expect{ user.follow(band) }.to change{ Buffer.tmp_value }.to(user) }
     end
 
-    describe :after_follow do
+    describe :after_being_followed do
       before do
         followable 'Band' do
-          after_follow { Buffer.tmp_value = self.just_followed_by }
+          after_being_followed { Buffer.tmp_value = self.just_followed_by }
         end
       end
 
       it { expect{ user.follow(band) }.to change{ Buffer.tmp_value }.to(user) }
     end
 
-    describe :before_unfollow do
+    describe :before_being_unfollowed do
       before do
         followable 'Band' do
-          before_unfollow { Buffer.tmp_value = self.about_to_be_unfollowed_by }
+          before_being_unfollowed { Buffer.tmp_value = self.about_to_be_unfollowed_by }
         end
 
         user.follow(band)
@@ -116,10 +116,10 @@ describe Partisan::Followable do
       it { expect{ user.unfollow(band) }.to change{ Buffer.tmp_value }.to(user) }
     end
 
-    describe :after_unfollow do
+    describe :after_being_unfollowed do
       before do
         followable 'Band' do
-          after_unfollow { Buffer.tmp_value = self.just_unfollowed_by }
+          after_being_unfollowed { Buffer.tmp_value = self.just_unfollowed_by }
         end
 
         user.follow(band)
