@@ -37,7 +37,7 @@ describe Partisan::Followable do
 
     describe :followers_by_type do
       it { expect(band.followers_by_type('User').count).to eq 1 }
-      it { expect(band.followers_by_type('User')).to be_an_instance_of(ActiveRecord::Relation) }
+      it { expect(band.followers_by_type('User')).to be_an_instance_of(ActiveRecord::Relation::ActiveRecord_Relation_User) }
       it { expect(band.followers_by_type('User').first).to be_an_instance_of(User) }
       it { expect(band.followers_by_type('Fan').count).to eq 0 }
     end
@@ -50,7 +50,7 @@ describe Partisan::Followable do
 
     describe :followers_by_type_in_method_missing do
       it { expect(band.user_followers.count).to eq 1 }
-      it { expect(band.user_followers).to be_an_instance_of(ActiveRecord::Relation) }
+      it { expect(band.user_followers).to be_an_instance_of(ActiveRecord::Relation::ActiveRecord_Relation_User) }
       it { expect(band.user_followers.first).to be_an_instance_of(User) }
       it { expect(band.fan_followers.count).to eq 0 }
     end
