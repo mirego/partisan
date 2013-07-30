@@ -24,7 +24,7 @@ Add this line to your application’s Gemfile:
 gem 'partisan'
 ```
 
-And then execute:
+And then execute
 
 ```bash
 $ bundle
@@ -84,7 +84,7 @@ band.followers_count
 # Quick lookup into the column and returns `1`
 ```
 
-The same concept applies to `followable` with a `following_count` column.
+The same concept applies to `followable` with a `followings_count` column.
 
 ### Callbacks
 
