@@ -45,8 +45,8 @@ module Partisan
   protected
 
     def update_follow_counter
-      self.follower.update_follow_counter
-      self.followable.update_follow_counter
+      self.follower.update_follower_counter
+      self.followable.update_followable_counter
     end
   end
 end
