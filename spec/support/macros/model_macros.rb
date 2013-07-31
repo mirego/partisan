@@ -15,6 +15,15 @@ module ModelMacros
     end
   end
 
+  # Create a new emotive and emotionnal model
+  def followable_and_follower(klass_name, &block)
+    spawn_model klass_name, ActiveRecord::Base do
+      acts_as_followable
+      acts_as_follower
+      class_eval(&block) if block
+    end
+  end
+
   protected
 
   # Create a new model class

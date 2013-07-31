@@ -5,19 +5,33 @@ describe Partisan::Follower do
     run_migration do
       create_table(:users, force: true) do |t|
         t.integer :followings_count, default: 0
+        t.integer :followers_count, default: 0
       end
       create_table(:concerts, force: true)
       create_table(:bands, force: true)
     end
 
-    follower 'User'
+    followable_and_follower 'User'
     followable 'Band'
     followable 'Concert'
   end
 
   let(:band) { Band.create }
   let(:user) { User.create }
+  let(:user2) { User.create }
   let(:concert) { Concert.create }
+
+  describe :UserToUser do
+    before do
+      user.follow user2
+
+      user.reload
+      user2.reload
+    end
+
+    it { expect(user.followings_count).to eq 1 }
+    it { expect(user2.followers_count).to eq 1 }
+  end
 
   describe :InstanceMethods do
     before do
