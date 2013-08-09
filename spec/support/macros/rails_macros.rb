@@ -3,7 +3,7 @@ module RailsMacros
     if ActiveRecord::VERSION::MAJOR == 3
       ActiveRecord::Relation
     else
-      Object.const_get("ActiveRecord::Relation::ActiveRecord_Relation_#{klass}")
+      "ActiveRecord::Relation::ActiveRecord_Relation_#{klass.name}".constantize
     end
   end
 end
