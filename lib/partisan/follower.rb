@@ -48,11 +48,12 @@ module Partisan
     #   @user.following?(@team)
     #
     # @return (Boolean)
-    def following?(resource)
+    def follows?(resource)
       return false if self == resource
 
       !!fetch_follows(resource).exists?
     end
+    alias_method :following?, :follows?
 
     # Get all follows record related to a resource
     #
