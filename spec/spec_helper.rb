@@ -15,6 +15,7 @@ RSpec.configure do |config|
   # Include our macros
   config.include DatabaseMacros
   config.include ModelMacros
+  config.include RailsMacros
 
   config.before(:each) do
     # Create the SQLite database

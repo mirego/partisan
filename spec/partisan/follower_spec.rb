@@ -58,7 +58,7 @@ describe Partisan::Follower do
 
     describe :following_by_type do
       it { expect(user.following_by_type('Band').count).to eq 1 }
-      it { expect(user.following_by_type('Band')).to be_an_instance_of(ActiveRecord::Relation::ActiveRecord_Relation_Band) }
+      it { expect(user.following_by_type('Band')).to be_an_instance_of(relation_class(Band)) }
       it { expect(user.following_by_type('Band').first).to be_an_instance_of(Band) }
       it { expect(user.following_by_type('Concert').count).to eq 0 }
     end
@@ -71,11 +71,11 @@ describe Partisan::Follower do
 
     describe :following_by_type_in_method_missing do
       it { expect(user.following_bands.count).to eq 1 }
-      it { expect(user.following_bands).to be_an_instance_of(ActiveRecord::Relation::Relation::ActiveRecord_Relation_Band) }
+      it { expect(user.following_bands).to be_an_instance_of(relation_class(Band)) }
       it { expect(user.following_bands.first).to be_an_instance_of(Band) }
 
       it { expect(user.following_concerts.count).to eq 0 }
-      it { expect(user.following_concerts).to be_an_instance_of(ActiveRecord::Relation::Relation::ActiveRecord_Relation_Concert) }
+      it { expect(user.following_concerts).to be_an_instance_of(relation_class(Concert)) }
     end
 
     describe :following_fields_by_type_in_method_missing do
