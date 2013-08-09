@@ -60,11 +60,11 @@ fan.follow(band)
 fan.following_bands
 # => [<Band id=2>]
 
-fan.following?(band)
+fan.follows?(band)
 # => true
 
 fan.unfollow(band)
-fan.following?(band)
+fan.follows?(band)
 # => false
 ```
 
