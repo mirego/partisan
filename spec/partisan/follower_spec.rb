@@ -49,11 +49,11 @@ describe Partisan::Follower do
       it { expect{user.unfollow band}.to change{Partisan::Follow.last}.to(nil) }
     end
 
-    describe :following? do
+    describe :follows? do
       let(:band2) { Band.create }
 
-      it { expect(user.following? band).to be_true }
-      it { expect(user.following? band2).to be_false }
+      it { expect(user.follows? band).to be_true }
+      it { expect(user.follows? band2).to be_false }
     end
 
     describe :following_by_type do
@@ -153,9 +153,10 @@ describe Partisan::Follower do
   end
 
   describe :AliasMethods do
-    subject { User.create }
+    subject { User.new }
 
     it { should respond_to :start_following }
     it { should respond_to :stop_following }
+    it { should respond_to :following? }
   end
 end
