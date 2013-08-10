@@ -1,5 +1,5 @@
 module ModelMacros
-  # Create a new emotional model
+  # Create a new followable model
   def followable(klass_name, &block)
     spawn_model klass_name, ActiveRecord::Base do
       acts_as_followable
@@ -7,20 +7,20 @@ module ModelMacros
     end
   end
 
-  # Create a new emotive model
+  # Create a new follower model
   def follower(klass_name, &block)
     spawn_model klass_name, ActiveRecord::Base do
       acts_as_follower
-      class_eval(&block) if block
+      instance_exec(&block) if block
     end
   end
 
-  # Create a new emotive and emotionnal model
+  # Create a new followable and follower model
   def followable_and_follower(klass_name, &block)
     spawn_model klass_name, ActiveRecord::Base do
       acts_as_followable
       acts_as_follower
-      class_eval(&block) if block
+      instance_exec(&block) if block
     end
   end
 
