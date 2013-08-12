@@ -23,4 +23,4 @@ module Partisan
   end
 end
 
-require 'partisan/railtie' if defined?(Rails) && Rails::VERSION::MAJOR >= 3
+ActiveRecord::Base.class_eval(&Partisan.inject_into_active_record)
