@@ -1,6 +1,7 @@
 # Partisan
 
 [![Gem Version](https://badge.fury.io/rb/partisan.png)](https://rubygems.org/gems/partisan)
+[![Code Climate](https://codeclimate.com/github/mirego/partisan.png)](https://codeclimate.com/github/mirego/partisan)
 [![Build Status](https://travis-ci.org/mirego/partisan.png?branch=master)](https://travis-ci.org/mirego/partisan)
 
 Partisan is a Ruby library that allows ActiveRecord records to follow other records.
