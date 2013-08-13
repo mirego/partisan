@@ -14,39 +14,62 @@ module Partisan
     after_create :update_follow_counter
     after_destroy :update_follow_counter
 
-    # Follower's :follow callbacks
-    around_create do |follow, blk|
-      self.follower.about_to_follow = self.follower.just_followed = self.followable
-      self.follower.run_callbacks :follow, &blk
-      self.follower.about_to_follow = self.follower.just_followed = nil
-    end
+    around_create :around_create_follower
+    around_create :around_create_followable
+    around_destroy :around_destroy_follower
+    around_destroy :around_destroy_followable
 
-    # Followable's :follow callbacks
-    around_create do |follow, blk|
-      self.followable.about_to_be_followed_by = self.followable.just_followed_by = self.follower
-      self.followable.run_callbacks :being_followed, &blk
-      self.followable.about_to_be_followed_by = self.followable.just_followed_by = nil
-    end
-
-    # Follower's :unfollow callbacks
-    around_destroy do |follow, blk|
-      self.follower.about_to_unfollow = self.follower.just_unfollowed = self.followable
-      self.follower.run_callbacks :unfollow, &blk
-      self.follower.about_to_unfollow = self.follower.just_unfollowed = nil
-    end
-
-    # Followable's :unfollow callbacks
-    around_destroy do |follow, blk|
-      self.followable.about_to_be_unfollowed_by = self.followable.just_unfollowed_by = self.follower
-      self.followable.run_callbacks :being_unfollowed, &blk
-      self.followable.about_to_be_unfollowed_by = self.followable.just_unfollowed_by = nil
-    end
+    # Constants
+    FOLLOWER_FOLLOW_ACCESSORS = [:about_to_follow, :just_followed]
+    FOLLOWER_UNFOLLOW_ACCESSORS = [:about_to_unfollow, :just_unfollowed]
+    FOLLOWABLE_BEING_FOLLOWED_ACCESSORS = [:about_to_be_followed_by, :just_followed_by]
+    FOLLOWABLE_BEING_UNFOLLOWED_ACCESSORS = [:about_to_be_unfollowed_by, :just_unfollowed_by]
 
   protected
 
     def update_follow_counter
-      self.follower.update_follower_counter
-      self.followable.update_followable_counter
+      follower.update_follower_counter
+      followable.update_followable_counter
+    end
+
+    def around_create_follower(&blk)
+      execute_callback :follower, :follow, &blk
+    end
+
+    def around_create_followable(&blk)
+      execute_callback :followable, :being_followed, &blk
+    end
+
+    def around_destroy_follower(&blk)
+      execute_callback :follower, :unfollow, &blk
+    end
+
+    def around_destroy_followable(&blk)
+      execute_callback :followable, :being_unfollowed, &blk
+    end
+
+    def self.accessors_for_follow_callback(association, callback)
+      const_get "#{association}_#{callback}_accessors".upcase
+    end
+
+  private
+
+    def execute_callback(association, callback, &blk)
+      # Fetch our associated objects
+      object = send(association)
+      reverse_object = association == :follower ? send(:followable) : send(:follower)
+
+      # Associate each given accessor to the reverse object
+      accessors = self.class.accessors_for_follow_callback(association, callback)
+      accessors.map { |accessor| object.send "#{accessor}=", reverse_object }
+
+      # Run the callbacks
+      object.run_callbacks(callback, &blk)
+
+      # Reset each accessor value
+      accessors.map { |accessor| object.send "#{accessor}=", nil }
+
+      true
     end
   end
 end
