@@ -1,10 +1,19 @@
-# Partisan
 
-[![Gem Version](https://badge.fury.io/rb/partisan.png)](https://rubygems.org/gems/partisan)
-[![Code Climate](https://codeclimate.com/github/mirego/partisan.png)](https://codeclimate.com/github/mirego/partisan)
-[![Build Status](https://travis-ci.org/mirego/partisan.png?branch=master)](https://travis-ci.org/mirego/partisan)
 
-Partisan is a Ruby library that allows ActiveRecord records to follow other records.
+<p align="center">
+  <br />
+  <a href="https://github.com/mirego/partisan">
+    <img src="http://i.imgur.com/npOjnF2.png" alt="Partisan" />
+  </a>
+  <br />
+  Partisan is a Ruby library that allows ActiveRecord records to follow other records.
+  <br /><br />
+  <a href="https://rubygems.org/gems/partisan"><img src="https://badge.fury.io/rb/partisan.png" /></a>
+  <a href="https://codeclimate.com/github/mirego/partisan"><img src="https://codeclimate.com/github/mirego/partisan.png" /></a>
+  <a href="https://travis-ci.org/mirego/partisan"><img src="https://travis-ci.org/mirego/partisan.png?branch=master" /></a>
+</p>
+
+---
 
 It’s heavily inspired by `acts_as_follower`. However, it’s not 100% compatible with `acts_as_follower` as I removed some “features”:
 
