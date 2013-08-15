@@ -1,7 +1,4 @@
-
-
 <p align="center">
-  <br />
   <a href="https://github.com/mirego/partisan">
     <img src="http://i.imgur.com/npOjnF2.png" alt="Partisan" />
   </a>
