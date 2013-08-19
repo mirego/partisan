@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/mirego/partisan">
-    <img src="http://i.imgur.com/an3Wj4Q.png" alt="Partisan" />
+    <img src="http://i.imgur.com/npOjnF2.png" alt="Partisan" />
   </a>
   <br />
   Partisan is a Ruby library that allows ActiveRecord records to follow other records.
