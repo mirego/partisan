@@ -41,12 +41,12 @@ describe Partisan::Follower do
     end
 
     describe :follow do
-      it { expect(Partisan::Follow.last.follower_id).to eq user.id }
-      it { expect(Partisan::Follow.last.followable_id).to eq band.id }
+      it { expect(Follow.last.follower_id).to eq user.id }
+      it { expect(Follow.last.followable_id).to eq band.id }
     end
 
     describe :unfollow do
-      it { expect{user.unfollow band}.to change{Partisan::Follow.last}.to(nil) }
+      it { expect{user.unfollow band}.to change{Follow.last}.to(nil) }
     end
 
     describe :follows? do

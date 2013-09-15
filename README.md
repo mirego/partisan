@@ -37,7 +37,7 @@ And then execute
 $ bundle
 ```
 
-Run the migration to add the `follows` table:
+Run the migration to add the `follows` table and the `Follow` model:
 
 ```bash
 $ rails generate partisan:install

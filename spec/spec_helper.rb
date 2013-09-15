@@ -20,6 +20,10 @@ RSpec.configure do |config|
 
     # Run our migration
     run_default_migration
+
+    spawn_model 'Follow', ActiveRecord::Base do
+      acts_as_follow
+    end
   end
 
   config.after(:each) do

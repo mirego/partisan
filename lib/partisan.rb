@@ -19,6 +19,10 @@ module Partisan
       def self.acts_as_followable
         self.send :include, Partisan::Followable
       end
+
+      def self.acts_as_follow
+        self.send :include, Partisan::Follow
+      end
     end
   end
 end

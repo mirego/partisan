@@ -20,6 +20,10 @@ module Partisan
       def create_migration_file
         migration_template 'migration.rb', 'db/migrate/add_follows_migration.rb'
       end
+
+      def create_model_file
+        template "model.rb", "app/models/follow.rb"
+      end
     end
   end
 end
