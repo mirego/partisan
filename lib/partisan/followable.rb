@@ -6,7 +6,7 @@ module Partisan
     include Partisan::FollowHelper
 
     included do
-      has_many :followings, as: :followable, class_name: 'Partisan::Follow', dependent: :destroy
+      has_many :followings, as: :followable, class_name: 'Follow', dependent: :destroy
       define_model_callbacks :being_followed
       define_model_callbacks :being_unfollowed
       attr_accessor :about_to_be_followed_by, :just_followed_by, :about_to_be_unfollowed_by, :just_unfollowed_by
