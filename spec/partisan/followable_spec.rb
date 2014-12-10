@@ -31,8 +31,8 @@ describe Partisan::Followable do
     end
 
     describe :followed_by? do
-      it { expect(band.followed_by? user).to be_true }
-      it { expect(concert.followed_by? user).to be_false }
+      it { expect(band.followed_by? user).to be_truthy }
+      it { expect(concert.followed_by? user).to be_falsey }
     end
 
     describe :followers_by_type do
@@ -62,8 +62,8 @@ describe Partisan::Followable do
     end
 
     describe :respond_to? do
-      it { expect(band.respond_to?(:user_followers)).to be_true }
-      it { expect(band.respond_to?(:users_follower_ids)).to be_true }
+      it { expect(band.respond_to?(:user_followers)).to be_truthy }
+      it { expect(band.respond_to?(:users_follower_ids)).to be_truthy }
     end
 
     describe :update_follow_counter do

@@ -52,8 +52,8 @@ describe Partisan::Follower do
     describe :follows? do
       let(:band2) { Band.create }
 
-      it { expect(user.follows? band).to be_true }
-      it { expect(user.follows? band2).to be_false }
+      it { expect(user.follows? band).to be_truthy }
+      it { expect(user.follows? band2).to be_falsey }
     end
 
     describe :following_by_type do
@@ -89,8 +89,8 @@ describe Partisan::Follower do
     end
 
     describe :respond_to? do
-      it { expect(user.respond_to?(:following_bands)).to be_true }
-      it { expect(user.respond_to?(:following_band_ids)).to be_true }
+      it { expect(user.respond_to?(:following_bands)).to be_truthy }
+      it { expect(user.respond_to?(:following_band_ids)).to be_truthy }
     end
   end
 
