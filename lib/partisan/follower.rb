@@ -2,7 +2,6 @@ module Partisan
   module Follower
     extend ActiveSupport::Concern
     extend ActiveModel::Callbacks
-    include Partisan::FollowHelper
 
     included do
       has_many :follows, as: :follower, class_name: 'Follow', dependent: :destroy
@@ -63,7 +62,7 @@ module Partisan
     #
     # @return [Follow, ...]
     def fetch_follows(resource)
-      follows.where followable_id: resource.id, followable_type: parent_class_name(resource)
+      follows.where followable_id: resource.id, followable_type: Partisan::Helper.parent_class_name(resource)
     end
 
     # Get resource records for a specific type, used by #method_missing
@@ -77,7 +76,7 @@ module Partisan
     def following_by_type(followable_type)
       opts = {
         'follows.follower_id' => self.id,
-        'follows.follower_type' => parent_class_name(self)
+        'follows.follower_type' => Partisan::Helper.parent_class_name(self)
       }
 
       followable_type.constantize.joins(:followings).where(opts)
