@@ -2,14 +2,12 @@ require "partisan/version"
 
 require "active_record"
 
+require "partisan/helper"
 require "partisan/follow"
-require "partisan/follow_helper"
 require "partisan/follower"
 require "partisan/followable"
 
 module Partisan
-  include Partisan::FollowHelper
-
   def self.inject_into_active_record
     @inject_into_active_record ||= Proc.new do
       def self.acts_as_follower

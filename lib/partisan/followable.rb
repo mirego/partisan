@@ -3,8 +3,6 @@ module Partisan
     extend ActiveSupport::Concern
     extend ActiveModel::Callbacks
 
-    include Partisan::FollowHelper
-
     included do
       has_many :followings, as: :followable, class_name: 'Follow', dependent: :destroy
       define_model_callbacks :being_followed
@@ -34,7 +32,7 @@ module Partisan
     def followers_by_type(follower_type)
       opts = {
         'follows.followable_id' => self.id,
-        'follows.followable_type' => parent_class_name(self)
+        'follows.followable_type' => Partisan::Helper.parent_class_name(self)
       }
 
       follower_type.constantize.joins(:follows).where(opts)
