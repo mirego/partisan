@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Partisan::VERSION
   spec.authors       = ['Simon Prévost', 'Rémi Prévost']
   spec.email         = ['sprevost@mirego.com', 'Rémi Prévost']
-  spec.description   = 'Partisan is a Ruby library that allows ActiveRecord records to be follower and followable, just like on popular social networks. It’s heavily inspired by acts_as_follower which is no longer maintened.'
+  spec.description   = 'Partisan is a Ruby library that allows ActiveRecord records to be follower and followable, just like on popular social networks. It’s heavily inspired by acts_as_follower which is no longer maintained.'
   spec.summary       = 'Partisan is a Ruby library that allows ActiveRecord records to be follower and followable'
   spec.homepage      = 'https://github.com/mirego/partisan'
   spec.license       = 'BSD 3-Clause'
