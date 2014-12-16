@@ -140,9 +140,15 @@ The available callbacks are:
 | `before_being_unfollowed` | `self.about_to_by_unfollowed_by` |
 | `after_being_unfollowed`  | `self.just_unfollowed_by`        |
 
+## Contributors
+
+* [@simonprev](https://github.com/simonprev)
+* [@remiprev](https://github.com/remiprev)
+* [@jdurand](https://github.com/jdurand)
+
 ## License
 
-`Partisan` is © 2013 [Mirego](http://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause).  See the [`LICENSE.md`](https://github.com/mirego/partisan/blob/master/LICENSE.md) file.
+`Partisan` is © 2013-2014 [Mirego](http://www.mirego.com) and may be freely distributed under the [New BSD license](http://opensource.org/licenses/BSD-3-Clause).  See the [`LICENSE.md`](https://github.com/mirego/partisan/blob/master/LICENSE.md) file.
 
 ## About Mirego
 
