@@ -56,6 +56,10 @@ end
 class Band < ActiveRecord::Base
   acts_as_followable
 end
+
+class Follow < ActiveRecord::Base
+  acts_as_follow
+end
 ```
 
 And follow/unfollow other records!
