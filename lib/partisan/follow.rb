@@ -30,8 +30,8 @@ module Partisan
   protected
 
     def update_follow_counter
-      follower.update_follower_counter
-      followable.update_followable_counter
+      follower.update_followings_counter
+      followable.update_followers_counter
     end
 
     def around_create_follower(&blk)

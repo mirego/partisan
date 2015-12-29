@@ -21,18 +21,6 @@ describe Partisan::Follower do
   let(:user2) { User.create }
   let(:concert) { Concert.create }
 
-  describe :UserToUser do
-    before do
-      user.follow user2
-
-      user.reload
-      user2.reload
-    end
-
-    it { expect(user.followings_count).to eq 1 }
-    it { expect(user2.followers_count).to eq 1 }
-  end
-
   describe :InstanceMethods do
     before do
       user.follow band
@@ -149,6 +137,15 @@ describe Partisan::Follower do
       end
 
       it { expect{ user.unfollow(band) }.to change{ Buffer.tmp_value }.to(band) }
+    end
+
+    describe :update_followers_counter do
+      before do
+        user.follow user2
+        user2.reload
+      end
+
+      it { expect(user2.followers_count).to eq 1 }
     end
   end
 

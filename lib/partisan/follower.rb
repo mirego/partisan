@@ -96,7 +96,7 @@ module Partisan
 
     # Update cache counter
     # Called in after_create and after_destroy
-    def update_follower_counter
+    def update_followings_counter
       self.update_attribute('followings_count', self.follows.count) if self.respond_to?(:followings_count)
     end
 

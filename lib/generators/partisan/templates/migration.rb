@@ -4,7 +4,7 @@ class AddFollowsMigration < ActiveRecord::Migration
       t.references :followable, polymorphic: true
       t.references :follower, polymorphic: true
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :follows, ['follower_id', 'follower_type'],     name: 'index_partisan_followers'
