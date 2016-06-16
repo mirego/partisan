@@ -22,7 +22,7 @@ It’s heavily inspired by `acts_as_follower`. However, it’s not 100% compatib
 But I also added awesome new ones:
 
 * You can use `following_team_ids` but also `following_team_names` (basically any `following_team_<column>s`). It takes advantage of the `pluck` method, so it doesn’t create an instance of each follower, it just return the relevant column values. (Go check `pluck` documentation, it’s simply awesome).
-* The `followers` and `followings` methods now return an `ActiveRecord::Relation` for easy chaining, scoping, counting, pagination, etc.
+* The `follows` and `followings` methods now return an `ActiveRecord::Relation` for easy chaining, scoping, counting, pagination, etc.
 
 ## Installation
 
@@ -72,6 +72,9 @@ fan.follow(band)
 fan.following_bands
 # => [<Band id=2>]
 
+band.fan_followers
+# => [<Fan id=1>]
+
 fan.follows?(band)
 # => true
 
@@ -89,7 +92,7 @@ However, if the *followed* record has a `followers_count` column, Partisan will 
 ```ruby
 fan.follow(band)
 
-band.followers.count
+band.followings.count
 # SQL query that counts records and returns `1`
 
 band.followers_count
