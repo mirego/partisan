@@ -9,7 +9,7 @@ module Partisan
       klass ||= obj.object.class if obj.respond_to?(:object) && obj.object.class < ActiveRecord::Base
 
       # In case we’re using STI, loop back until we find the top-level ActiveRecord model
-      klass = klass.superclass while klass.superclass != ActiveRecord::Base
+      klass = klass.superclass while !klass.superclass.abstract_class && klass.superclass != ActiveRecord::Base
 
       klass.name
     end
