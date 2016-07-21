@@ -24,6 +24,18 @@ describe Partisan::Helper do
         it { expect(parent_class_name).to eql 'Article' }
       end
 
+      context 'with object that inherits from abstract class' do
+        let(:object) do
+          spawn_model('ApplicationRecord', ActiveRecord::Base) do
+            self.abstract_class = true
+          end
+
+          spawn_model('Article', ApplicationRecord).new
+        end
+
+        it { expect(parent_class_name).to eql 'Article' }
+      end
+
       context 'with a presented record object' do
         let(:presenter_class) do
           Class.new(::SimpleDelegator) do
