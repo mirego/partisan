@@ -7,7 +7,5 @@ rvm:
 
 gemfile:
   - gemfiles/Gemfile.activerecord-5.0
-  - gemfiles/Gemfile.activerecord-4.2
-  - gemfiles/Gemfile.activerecord-4.1
 
 script: "echo 'DO IT' && bundle exec rake spec"
